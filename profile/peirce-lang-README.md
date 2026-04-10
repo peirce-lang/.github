@@ -1,6 +1,6 @@
 # peirce-lang
 
-A query language for data that has meaning.
+A semantic front door to your data.
 
 ```bash
 npm install -g snf-lens peirce-cli
@@ -25,36 +25,51 @@ No server. No SQL. No schema knowledge required. Three commands from a MARC file
 
 ---
 
-## What this is
+## What is Peirce?
 
-SNF (Semantic Normalized Form) is a data model and Boolean routing algebra. It organizes facts along six dimensions — **WHO WHAT WHEN WHERE WHY HOW** — and treats queries as set operations over those coordinates. AND narrows. OR widens. The system finds the set.
+Peirce is a semantic query language. It works on data organized as meaningful coordinates, so you can query directly by meaning instead of navigating tables and joins.
 
-The algebra is the same one that powers Lucene, Druid, and Apache Pinot. The difference is that the coordinates are semantic — they describe meaning, not text tokens.
+Data is expressed across six dimensions:
 
-Peirce is the query language for that coordinate space. Named after Charles Sanders Peirce, whose triadic sign relation maps directly onto the SNF record structure.
+**WHO · WHAT · WHEN · WHERE · WHY · HOW**
 
----
-
-## Packages
-
-| Package | What it does | License |
-|---------|-------------|---------|
-| [peirce-cli](https://github.com/peirce-lang/peirce-cli) | Query any SNF substrate from the command line | MIT |
-| [snf-lens](https://github.com/peirce-lang/snf-lens) | Translate your data into SNF substrates | MIT |
-
----
-
-## Quick demo
-
-The `snf-lens` package includes a sample dataset — 20 Lew Archer novels by Ross Macdonald from the Library of Congress. Run the three commands above and you have a working semantic substrate in under a minute.
-
-Then try discovery — explore what's in the data without knowing the schema:
+Queries combine those dimensions using Boolean logic:
 
 ```bash
-peirce "*" --db ./lew_archer.duckdb          # what dimensions have data?
-peirce "WHO|*" --db ./lew_archer.duckdb      # what fields are in WHO?
-peirce "WHO|author|*" --db ./lew_archer.duckdb  # what authors are there?
+# AND across dimensions
+peirce "WHAT.subject_topic = 'dragons' AND WHEN.publication_date >= '2000'" --db ./corpus.duckdb
+
+# OR within a dimension
+peirce "WHAT.genre = 'Fantasy' OR WHAT.genre = 'Science fiction'" --db ./corpus.duckdb
+
+# Explore available fields
+peirce "WHO|*" --db ./corpus.duckdb
+
+# Explore values
+peirce "WHO|author|*" --db ./corpus.duckdb
 ```
+
+---
+
+## How it works
+
+SNF (Semantic Normalized Form) is the data model underneath. Every fact becomes a coordinate:
+
+```
+DIM|semantic_key|value
+```
+
+Example:
+
+```
+WHO|author|Macdonald, Ross
+WHAT|subject_topic|Private investigators
+WHEN|publication_date|1964
+```
+
+Peirce evaluates queries as Boolean operations over those coordinates. AND is intersection. OR is union. The system finds the set.
+
+The algebra is the same one that powers Lucene, Druid, and Apache Pinot. The difference is that the coordinates are semantic — they describe meaning, not text tokens.
 
 ---
 
@@ -72,6 +87,29 @@ If you work with search infrastructure you'll recognize immediately what you're 
 
 ---
 
+## What Peirce is (and isn't)
+
+Peirce is:
+- A semantic query language
+- A way to query by meaning instead of structure
+- A front door to meaning-aware data
+
+Peirce is not:
+- A database
+- A replacement for SQL
+- A natural language interface
+
+---
+
+## Packages
+
+| Package | What it does | License |
+|---------|-------------|---------|
+| [peirce-cli](https://github.com/peirce-lang/peirce-cli) | Query any SNF substrate from the command line | MIT |
+| [snf-lens](https://github.com/peirce-lang/snf-lens) | Translate your data into SNF substrates | MIT |
+
+---
+
 ## Bring your own data
 
 `snf-lens` translates MARC21 library catalog data today. The lens pattern is open — any domain with structured data can follow the same path. If you build a lens for your domain, consider contributing it back.
@@ -80,9 +118,11 @@ Candidates for community lenses: FHIR (healthcare), Open Dental, court records, 
 
 ---
 
-## The larger stack
+## What's next
 
-`peirce-cli` and `snf-lens` are the open entry point. For teams and production use, Reckoner is the full workbench — visual query builder, standing queries, data quality diagnostics, multi-substrate federation. The substrate format is identical. A file you build with `snf-lens` loads directly into Reckoner.
+`peirce-cli` and `snf-lens` are the open entry point to a larger semantic architecture.
+
+If you run this and want to know what comes next — open an issue or reach out. There's more.
 
 ---
 
