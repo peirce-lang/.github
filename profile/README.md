@@ -49,7 +49,28 @@ a browser-based UI that lets you see the hub-and-spoke structure as you work.
 The lens it produces is directly compatible with `snf-peirce`.
 
 ---
+## Who this is for
 
+A lot of people are locked out of their own data. Not because the data doesn't
+exist — it does. Not because the questions aren't valid — they are. Because
+the tools that answer those questions require syntax knowledge, database access,
+or technical infrastructure that most people don't have and shouldn't need to
+learn just to ask a question.
+
+SNF and Peirce are for anyone on the wrong side of that wall.
+
+- The hobbyist who exported their Discogs collection, Scryfall card list,
+  Letterboxd history, or IMDB watchlist and wants to actually query it
+- The domain expert who understands the data but doesn't control the database
+  and can only ask what the application allows
+- The citizen journalist or activist working with public records, exports, or
+  scraped datasets who needs answers, not a SQL tutorial
+- Anyone with messy, heterogeneous data from multiple sources who thinks in
+  questions, not table joins
+
+Map your data once. Ask questions in plain terms forever.
+
+---
 ## How it works
 
 Every fact becomes a coordinate:
