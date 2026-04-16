@@ -34,6 +34,18 @@ No server. No SQL. No schema knowledge required.
 
 ---
 
+## See it working
+
+SNF examines your data and suggests how to map it:
+
+![SNF suggests dimensions for your data](../suggest.png)
+
+One plain-language query returns a clean result table:
+
+![Query results](../query.png)
+
+---
+
 ## How meaning gets assigned
 
 When you ingest a new dataset, `snf-peirce` examines the data structure and
