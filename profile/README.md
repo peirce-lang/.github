@@ -170,9 +170,6 @@ Started in a law firm mailroom on weekends. 25 years in legal records
 
 Self-taught SQL. The only person in the firm who could query the data.
 
-Making under six figures after a quarter century doing work that analysts
-elsewhere would do.
-
 Built SNF, Peirce, and Reckoner anyway.
 
 Built with metaphor, isomorphism, and AI.
