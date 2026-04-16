@@ -2,80 +2,104 @@
 
 A semantic front door to your data.
 
-```bash
-npm install -g snf-lens peirce-cli
+SNF (Semantic Normalized Form) organizes facts by what kind of thing they are —
+**WHO · WHAT · WHEN · WHERE · WHY · HOW** — and lets you query across them
+without knowing the underlying schema or writing joins.
 
-snf-lens marc ./sample/lew_archer.mrc --out ./lew_archer.duckdb
-
-peirce "WHO.author = 'Macdonald, Ross' AND WHEN.publication_date BETWEEN 1960 AND 1970" \
-  --db ./lew_archer.duckdb
-```
-
-```
-3 results  32ms
-
-  Id                 Label                     Author          Year
-  ─────────────────  ────────────────────────  ──────────────  ────
-  marc:loc:8002131   Black money               Macdonald, Ross 1966
-  marc:loc:10312533  The zebra-striped hearse  Macdonald, Ross 1962
-  marc:loc:2640348   The chill                 Macdonald, Ross 1963
-```
-
-No server. No SQL. No schema knowledge required. Three commands from a MARC file to a semantic query returning exactly the right results from real Library of Congress records.
+Peirce is the query language for SNF. Queries are Boolean operations over
+semantic coordinates. AND is intersection. OR is union. The system finds the set.
 
 ---
 
-## What is Peirce?
-
-Peirce is a semantic query language. It works on data organized as meaningful coordinates, so you can query directly by meaning instead of navigating tables and joins.
-
-Data is expressed across six dimensions:
-
-**WHO · WHAT · WHEN · WHERE · WHY · HOW**
-
-Queries combine those dimensions using Boolean logic:
+## Get started
 
 ```bash
-# AND across dimensions
-peirce "WHAT.subject_topic = 'dragons' AND WHEN.publication_date >= '2000'" --db ./corpus.duckdb
-
-# OR within a dimension
-peirce "WHAT.genre = 'Fantasy' OR WHAT.genre = 'Science fiction'" --db ./corpus.duckdb
-
-# Explore available fields
-peirce "WHO|*" --db ./corpus.duckdb
-
-# Explore values
-peirce "WHO|author|*" --db ./corpus.duckdb
+pip install snf-peirce
 ```
+
+```python
+import pandas as pd
+from snf_peirce import suggest, compile_data, query
+
+df       = pd.read_csv("my_collection.csv")
+draft    = suggest(df)          # proposes dimension and semantic key for each field
+# confirm or override any mapping, then:
+lens     = draft.to_lens(lens_id="my_lens_v1", authority="me")
+compiled = compile_data(df, lens)
+
+query(compiled, 'WHO.artist = "Miles Davis" AND WHEN.released BETWEEN "1955" AND "1965"')
+```
+
+No server. No SQL. No schema knowledge required.
+
+---
+
+## How meaning gets assigned
+
+When you ingest a new dataset, `snf-peirce` examines the data structure and
+suggests which dimension and semantic key each field belongs to. You confirm
+or override every mapping — nothing is assigned without your approval. The
+meaning decision is always yours. The tool handles the encoding. No ML, no NLP.
+
+The lens is a human-authored map from your fields to semantic coordinates,
+captured once and reusable forever.
+
+If you prefer a visual interface for the mapping step, `lens-tool` provides
+a browser-based UI that lets you see the hub-and-spoke structure as you work.
+The lens it produces is directly compatible with `snf-peirce`.
 
 ---
 
 ## How it works
 
-SNF (Semantic Normalized Form) is the data model underneath. Every fact becomes a coordinate:
+Every fact becomes a coordinate:
 
 ```
-DIM|semantic_key|value
+DIM | semantic_key     | value
+
+WHO  | author           | Macdonald, Ross
+WHAT | subject_topic    | Private investigators
+WHEN | publication_date | 1964
 ```
 
-Example:
+Peirce evaluates queries as Boolean operations over those coordinates.
+The algebra is the same one that powers Lucene, Druid, and Apache Pinot.
+The difference is that the coordinates are semantic — they describe meaning,
+not text tokens.
 
+---
+
+## Query syntax
+
+```python
+# AND across dimensions — narrows results
+query(compiled, 'WHO.artist = "Miles Davis" AND WHEN.released = "1959"')
+
+# OR within a dimension — widens results
+query(compiled, 'WHO.artist = "Miles Davis" OR WHO.artist = "John Coltrane"')
+
+# Range
+query(compiled, 'WHEN.released BETWEEN "1955" AND "1965"')
+
+# Explore available fields
+query(compiled, 'WHO|*')
+
+# Explore values
+query(compiled, 'WHO|artist|*')
 ```
-WHO|author|Macdonald, Ross
-WHAT|subject_topic|Private investigators
-WHEN|publication_date|1964
-```
 
-Peirce evaluates queries as Boolean operations over those coordinates. AND is intersection. OR is union. The system finds the set.
-
-The algebra is the same one that powers Lucene, Druid, and Apache Pinot. The difference is that the coordinates are semantic — they describe meaning, not text tokens.
+The same query string runs identically against any SNF-compliant substrate —
+CSV, DuckDB, PostgreSQL, SQL Server, or Apache Pinot. The substrate adapter
+absorbs all translation.
 
 ---
 
 ## The algebra in plain sight
 
-The `demo/` folder in `peirce-cli` contains a Roaring Bitmap proof of concept. It builds a miniature SNF substrate entirely in memory using bitmap posting lists and executes Peirce queries against it — showing every posting list, every union, every intersection.
+The `demo/` folder in `peirce-cli` contains a Roaring Bitmap proof of concept.
+It builds a miniature SNF substrate entirely in memory using bitmap posting lists
+and executes Peirce queries against it — showing every posting list, every union,
+every intersection.
 
 ```bash
 cd peirce-cli/demo
@@ -83,52 +107,46 @@ npm install
 node peirce-bitmap-demo.mjs
 ```
 
-If you work with search infrastructure you'll recognize immediately what you're looking at. The SNF routing algebra is bitmap intersection. Not a metaphor — the actual operation.
+If you work with search infrastructure you'll recognize immediately what you're
+looking at. The SNF routing algebra is bitmap intersection. Not a metaphor —
+the actual operation.
 
 ---
 
-## What Peirce is (and isn't)
+## Repositories
 
-Peirce is:
-- A semantic query language
-- A way to query by meaning instead of structure
-- A front door to meaning-aware data
-
-Peirce is not:
-- A database
-- A replacement for SQL
-- A natural language interface
+| Repo | What it is |
+|---|---|
+| [snf-peirce](https://github.com/peirce-lang/snf-peirce) | Python runtime — lens authoring, data compilation, Peirce queries. Primary interface. |
+| [lens-tool](https://github.com/peirce-lang/lens-tool) | Browser UI for visual lens mapping. Optional — useful if you prefer to see the hub-and-spoke structure while authoring. |
+| [snf-lens](https://github.com/peirce-lang/snf-lens) | Core JS lens authoring library. |
+| [peirce-cli](https://github.com/peirce-lang/peirce-cli) | CLI for running Peirce queries. Contains the bitmap demo and the canonical reference parser. |
 
 ---
 
-## Packages
+## The Peirce parser
 
-| Package | What it does | License |
-|---------|-------------|---------|
-| [peirce-cli](https://github.com/peirce-lang/peirce-cli) | Query any SNF substrate from the command line | MIT |
-| [snf-lens](https://github.com/peirce-lang/snf-lens) | Translate your data into SNF substrates | MIT |
+The canonical reference implementation is the JavaScript parser in
+`peirce-cli` (`peirce_parser.cjs`). It is MIT licensed.
 
----
+The Python implementation in `snf-peirce` is a conformant port. Cross-language
+conformance is verified by 37 tests covering the full grammar — same input
+always produces identical constraint objects in both languages.
 
-## Bring your own data
-
-`snf-lens` translates MARC21 library catalog data today. The lens pattern is open — any domain with structured data can follow the same path. If you build a lens for your domain, consider contributing it back.
-
-Candidates for community lenses: FHIR (healthcare), Open Dental, court records, museum collections, scientific literature.
-
----
-
-## What's next
-
-`peirce-cli` and `snf-lens` are the open entry point to a larger semantic architecture.
-
-If you run this and want to know what comes next — open an issue or reach out. There's more.
+**Operator precedence:** AND binds more tightly than OR.
+`A AND B OR C AND D` parses as `(A AND B) OR (C AND D)`.
+Parentheses override this in the usual way.
 
 ---
 
 ## About
 
-Associate's degree — had to choose between finishing school and eating. Started in a law firm mailroom on weekends. 25 years in legal records. Self-taught SQL. The only person in the firm who could query the data. Making under six figures after a quarter century doing work that analysts elsewhere would do.
+Associate's degree — had to choose between finishing school and eating.
+
+Started in a law firm mailroom on weekends. 25 years in legal records.
+
+Self-taught SQL. The only person in the firm who could query the data.
+
 
 Built SNF, Peirce, and Reckoner anyway.
 
@@ -138,4 +156,5 @@ Built with metaphor, isomorphism, and AI.
 
 ## License
 
-`peirce-cli` and `snf-lens` are MIT licensed. Build whatever you want.
+SNF specification, Peirce language specification, and reference parser: MIT.
+See individual repositories for component-level licensing.
