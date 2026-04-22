@@ -45,8 +45,6 @@ The query surface doesn't know what substrate it's on. It just knows coordinates
 
 When you open a field, Reckoner shows you what's actually in your data — not what you wish were there.
 
-![Flagged values showing near-duplicate variants sorted adjacent](docs/img/flagged_tab.png)
-
 *"The War And Treaty"* and *"The War and Treaty"* are two different values. One capital letter. Both count 1. Every collection has this. Most tools hide it. Reckoner surfaces it without you asking, groups the variants together, and lets you add all of them as OR conditions in one click.
 
 This is what happens when a tool understands the *structure* of your data rather than just letting you query it.
