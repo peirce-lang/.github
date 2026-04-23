@@ -155,7 +155,7 @@ A record collection, a data quality catch, a diff between two named sets, and a 
 
 **Commercial use:** Enterprise licenses available for organizations that need commercial terms, private modifications, or SLA-backed support.
 
-For enterprise licensing: alexx9811@gmail.com
+For enterprise licensing: [contact to be added before public release]
 
 ---
 
@@ -165,13 +165,13 @@ For enterprise licensing: alexx9811@gmail.com
 pip install snf-peirce
 ```
 
-→ [`snf-peirce` documentation](snf-peirce/README.md) — Python library, query syntax, Jupyter workflow
+→ [snf-peirce on PyPI](https://pypi.org/project/snf-peirce/) — Python library, query syntax, Jupyter workflow
 
 → [SNF specification](SNF_README.md) — the coordinate model and routing algebra
 
-→ [Peirce query language](docs/peirce.md) — full query syntax reference
+→ [GitHub](https://github.com/peirce-lang) — full source and documentation
 
-→ [Running Reckoner](docs/reckoner.md) — the visual workbench, setup guide
+Reckoner is currently in active development. If you're interested in early access or want to discuss enterprise licensing, get in touch.
 
 ---
 
