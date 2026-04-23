@@ -21,7 +21,7 @@ WHO   artist   Elvis Presley ×
 WHERE label    RCA Victor ×
 ```
 
-Results: 24 records. Each result card shows exactly which coordinates matched. You didn't write SQL. You didn't export anything. You described what you wanted.
+Results: 24 records. Each result card shows exactly which coordinates matched. When a set collapses to nothing, you can adjust constraints directly instead of rewriting the query. You didn't write SQL. You didn't export anything. You described what you wanted.
 
 **The same surface, on legal billing data:**
 
@@ -155,7 +155,7 @@ A record collection, a data quality catch, a diff between two named sets, and a 
 
 **Commercial use:** Enterprise licenses available for organizations that need commercial terms, private modifications, or SLA-backed support.
 
-For enterprise licensing: [contact to be added before public release]
+For enterprise licensing: alexx9811@gmail.com
 
 ---
 
