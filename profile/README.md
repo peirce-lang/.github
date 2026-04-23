@@ -1,16 +1,12 @@
 # Reckoner
 
-**For people who are experts in a domain but not in data.**
+**Reckoner is the intermediary step between finding a dataset, narrowing it down, and sending it where it needs to go next.**
 
-The lawyer who knows privilege law cold. The cataloger who knows exactly what a subject heading means. The researcher who understands their dataset better than anyone. The archivist who could describe the exact records they need in thirty seconds. The collector who knows their collection better than any database does.
+For people who are experts in a domain but not in data — the lawyer, the cataloger, the researcher, the archivist, the collector. People who know exactly what they're looking for but currently have to ask someone else to write the query, wait, iterate, and still not quite get what they meant.
 
-All of them know what they're looking for. None of them should need to know SQL to find it.
+That middle step — narrowing a dataset to the exact set you mean, understanding why it contains what it contains, and handing it cleanly to whatever comes next — currently happens in Excel, or across four emails, or not at all.
 
-&nbsp;
-
-Everyone has a collection. Records, books, legal documents, library catalogs, research data, client matters. It lives in a database or a document management system or a spreadsheet. You know what's in it, roughly. But when you need the *exact* set that matches several things at once — and you need to understand why those records matched, spot the inconsistencies in your data, and compare this set against what you had last year — your current options are: write SQL, export to Excel, or ask someone who knows SQL and wait.
-
-None of those were built for this. Reckoner is.
+Reckoner is that step. I sometimes think of it as a finishing school for data.
 
 ---
 
@@ -159,7 +155,7 @@ A record collection, a data quality catch, a diff between two named sets, and a 
 
 **Commercial use:** Enterprise licenses available for organizations that need commercial terms, private modifications, or SLA-backed support.
 
-For enterprise licensing: alexx9811@gmail.com
+For enterprise licensing: [contact to be added before public release]
 
 ---
 
