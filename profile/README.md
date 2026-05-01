@@ -161,12 +161,15 @@ For enterprise licensing: alexx9811@gmail.com
 
 ## Get started
 
-→ Reckoner — clone, run, query the demo substrates in 5 minutes
-→ snf-peirce — Python library, query syntax, Jupyter workflow (pip install snf-peirce)
-→ SNF specification — the coordinate model and routing algebra
-→ GitHub organization — all repos
+→ [Reckoner](https://github.com/peirce-lang/reckoner) — clone, run, query the demo substrates in 5 minutes
 
-Reckoner is in active development and improving in public. Issues, questions, and feedback all welcome at the Reckoner repo.
+→ [snf-peirce](https://pypi.org/project/snf-peirce/) — Python library, query syntax, Jupyter workflow (`pip install snf-peirce`)
+
+→ [SNF specification](https://github.com/peirce-lang/snf-peirce/blob/main/SNF_README.md) — the coordinate model and routing algebra
+
+→ [GitHub organization](https://github.com/peirce-lang) — all repos
+
+Issues, questions, and feedback all welcome at the [Reckoner repo](https://github.com/peirce-lang/reckoner).
 
 ---
 
