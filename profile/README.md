@@ -155,23 +155,18 @@ A record collection, a data quality catch, a diff between two named sets, and a 
 
 **Commercial use:** Enterprise licenses available for organizations that need commercial terms, private modifications, or SLA-backed support.
 
-For enterprise licensing: [contact to be added before public release]
+For enterprise licensing: alexx9811@gmail.com
 
 ---
 
 ## Get started
 
-```bash
-pip install snf-peirce
-```
+→ Reckoner — clone, run, query the demo substrates in 5 minutes
+→ snf-peirce — Python library, query syntax, Jupyter workflow (pip install snf-peirce)
+→ SNF specification — the coordinate model and routing algebra
+→ GitHub organization — all repos
 
-→ [snf-peirce on PyPI](https://pypi.org/project/snf-peirce/) — Python library, query syntax, Jupyter workflow
-
-→ [SNF specification](SNF_README.md) — the coordinate model and routing algebra
-
-→ [GitHub](https://github.com/peirce-lang) — full source and documentation
-
-Reckoner is currently in active development. If you're interested in early access or want to discuss enterprise licensing, get in touch.
+Reckoner is in active development and improving in public. Issues, questions, and feedback all welcome at the Reckoner repo.
 
 ---
 
